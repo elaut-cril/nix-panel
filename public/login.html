@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вход | NIX Panel</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0a0a0f; --surface: #12121a; --surface2: #1a1a2e; --accent: #8A2BE2; --text: #e0e0e0; --text2: #888; --border: #2a2a3e; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+.login-card { background: var(--surface); border: 2px solid var(--border); padding: 40px; border-radius: 20px; width: 360px; text-align: center; box-shadow: 0 0 40px rgba(138, 43, 226, 0.15); position: relative; overflow: hidden; }
+.login-card::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; height: 3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); border-radius: 20px 20px 0 0; }
+.logo { font-size: 28px; font-weight: 800; color: var(--accent); letter-spacing: 2px; margin-bottom: 5px; }
+.logo span { color: var(--text); }
+.subtitle { font-size: 12px; color: var(--text2); margin-bottom: 30px; letter-spacing: 1px; }
+h2 { margin-bottom: 25px; font-weight: 600; font-size: 16px; color: var(--text2); }
+input { width: 100%; padding: 12px 14px; margin-bottom: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); outline: none; font-size: 14px; transition: 0.2s; }
+input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15); }
+input::placeholder { color: var(--text2); opacity: 0.5; }
+button { width: 100%; padding: 12px; background: var(--accent); border: none; border-radius: 8px; color: white; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
+button:hover { background: #7a1fc2; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3); }
+button:active { transform: translateY(0); }
+.error { color: #ff4444; font-size: 13px; margin-bottom: 15px; display: none; padding: 8px; background: rgba(255, 68, 68, 0.1); border-radius: 6px; }
+.footer-text { margin-top: 20px; font-size: 11px; color: var(--text2); opacity: 0.5; }
+.language-picker{display:flex;align-items:center;justify-content:center;gap:8px;margin:-16px 0 18px;color:var(--text2);font-size:11px}.language-picker select{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:5px;padding:4px 6px}
+</style>
+</head>
+<body>
+<div class="login-card">
+  <div class="logo">NIX<span>PANEL</span></div>
+  <div class="subtitle">Server Management v2.2.0</div>
+  <label class="language-picker"><span id="languageLabel">Язык</span> <select id="language" onchange="applyLoginLang(this.value)"><option value="ru">Русский</option><option value="en">English</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="zh">简体中文</option></select></label>
+  <div id="error" class="error" data-t="errorMsg">Неверный логин или пароль</div>
+  <input type="text" id="login" data-t-placeholder="loginPh" placeholder="Логин" autofocus>
+  <input type="password" id="password" data-t-placeholder="passPh" placeholder="Пароль" onkeypress="if(event.key==='Enter') doLogin()">
+  <button onclick="doLogin()" data-t="btn">ВОЙТИ</button>
+  <div class="footer-text" data-t="footer">NIX Panel — управление сервером</div>
+</div>
+
+<script>
+// Лёгкий автоопределённый перевод страницы входа по языку браузера — она
+// открывается до какой-либо авторизации, поэтому серверные/пользовательские
+// настройки языка тут ещё не видны, полагаемся на navigator.language.
+var LOGIN_I18N = {
+  ru: { language:'Язык',errorMsg:'Неверный логин или пароль',loginPh:'Логин',passPh:'Пароль',btn:'ВОЙТИ',footer:'NIX Panel — управление сервером',title:'Вход | NIX Panel' },
+  en: { language:'Language',errorMsg:'Invalid username or password',loginPh:'Username',passPh:'Password',btn:'LOG IN',footer:'NIX Panel — server management',title:'Sign in | NIX Panel' },
+  de: { language:'Sprache',errorMsg:'Ungültiger Benutzername oder ungültiges Passwort',loginPh:'Benutzername',passPh:'Passwort',btn:'ANMELDEN',footer:'NIX Panel — Serververwaltung',title:'Anmelden | NIX Panel' },
+  fr: { language:'Langue',errorMsg:'Nom d’utilisateur ou mot de passe incorrect',loginPh:'Nom d’utilisateur',passPh:'Mot de passe',btn:'SE CONNECTER',footer:'NIX Panel — gestion du serveur',title:'Connexion | NIX Panel' },
+  es: { language:'Idioma',errorMsg:'Usuario o contraseña incorrectos',loginPh:'Usuario',passPh:'Contraseña',btn:'INICIAR SESIÓN',footer:'NIX Panel — administración del servidor',title:'Iniciar sesión | NIX Panel' },
+  zh: { language:'语言',errorMsg:'用户名或密码错误',loginPh:'用户名',passPh:'密码',btn:'登录',footer:'NIX Panel — 服务器管理',title:'登录 | NIX Panel' }
+};
+function applyLoginLang(selected){
+  var lang=selected||(navigator.language||'ru').slice(0,2).toLowerCase();
+  if(!LOGIN_I18N[lang])lang='en';
+  var dict=LOGIN_I18N[lang];
+  document.getElementById('language').value=lang;
+  document.getElementById('languageLabel').textContent=dict.language;
+  try{localStorage.setItem('nix-language',lang)}catch(e){}
+  document.querySelectorAll('[data-t]').forEach(function(el){if(dict[el.dataset.t])el.textContent=dict[el.dataset.t]});
+  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){if(dict[el.dataset.tPlaceholder])el.placeholder=dict[el.dataset.tPlaceholder]});
+  document.title=dict.title;
+  document.documentElement.lang=lang;
+}
+try{applyLoginLang(localStorage.getItem('nix-language')||undefined)}catch(e){applyLoginLang()}
+async function doLogin() {
+  const login = document.getElementById('login').value;
+  const password = document.getElementById('password').value;
+  const errDiv = document.getElementById('error');
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ login, password })
+    });
+    if (res.ok) { window.location.href = '/'; }
+    else { errDiv.style.display = 'block'; }
+  } catch(e) { errDiv.style.display = 'block'; }
+}
+</script>
+</body>
+</html>
