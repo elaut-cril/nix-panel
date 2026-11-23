@@ -1,0 +1,67 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --bg: #080b11; --surface: #10151e; --surface2: #171e2a; --accent: #8b5cf6; --text: #edf1f7; --text2: #8e99aa; --border: #252e3c; --danger: #fb7185; --ease: cubic-bezier(.23, 1, .32, 1); color-scheme: dark; }
+body { min-height: 100vh; min-height: 100dvh; background: var(--bg); color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 10%, rgba(139, 92, 246, .10), transparent 36%), radial-gradient(circle at 88% 90%, rgba(34, 211, 238, .05), transparent 30%); }
+button, input, select { font: inherit; }
+button, select { cursor: pointer; }
+[hidden] { display: none !important; }
+.login-shell { position: relative; display: grid; grid-template-columns: minmax(320px, .9fr) minmax(440px, 1.1fr); width: min(1080px, calc(100% - 48px)); min-height: 620px; margin: 5vh auto; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: var(--surface); box-shadow: 0 30px 100px rgba(0, 0, 0, .36); }
+.brand-panel { display: flex; flex-direction: column; justify-content: space-between; padding: 52px; border-right: 1px solid var(--border); background: #0b1018; }
+.brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 800; letter-spacing: .03em; }
+.brand span:last-child { color: var(--text2); font-weight: 500; }
+.brand-copy { max-width: 390px; }
+.eyebrow { margin-bottom: 16px; color: var(--accent); font-size: 11px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }
+.brand-copy h2 { max-width: 360px; font-size: clamp(32px, 4vw, 46px); line-height: 1.08; letter-spacing: -.045em; }
+.brand-copy p { margin-top: 20px; color: var(--text2); font-size: 14px; line-height: 1.7; }
+.feature-list { display: grid; gap: 14px; margin-top: 34px; list-style: none; }
+.feature-list li { display: flex; align-items: center; gap: 10px; color: #b5bfcd; font-size: 12px; }
+.feature-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(139, 92, 246, .09); }
+.brand-footer { color: #647184; font: 10px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; }
+.login-panel { display: flex; align-items: center; justify-content: center; padding: 48px; }
+.login-card { width: min(390px, 100%); }
+.login-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 46px; }
+.language-picker { display: flex; align-items: center; gap: 8px; color: var(--text2); font-size: 11px; }
+.language-picker select { padding: 7px 28px 7px 9px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface2); color: var(--text); }
+.mobile-brand { display: none; }
+.login-card h1 { font-size: 30px; line-height: 1.15; letter-spacing: -.035em; }
+.login-description { margin-top: 10px; color: var(--text2); font-size: 13px; line-height: 1.6; }
+.login-form { margin-top: 30px; }
+.field { margin-top: 18px; }
+.field label { display: block; margin-bottom: 8px; color: #b8c1ce; font-size: 11px; font-weight: 650; }
+.input-shell { position: relative; }
+.input-shell input { width: 100%; height: 48px; padding: 0 14px; border: 1px solid var(--border); border-radius: 11px; outline: none; background: #0b1018; color: var(--text); font-size: 14px; transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease; }
+.input-shell input::placeholder { color: #596678; }
+.input-shell input:focus { border-color: var(--accent); background: #0d121c; box-shadow: 0 0 0 3px rgba(139, 92, 246, .12); }
+.error { margin-top: 16px; padding: 11px 12px; border: 1px solid rgba(251, 113, 133, .28); border-radius: 9px; background: rgba(251, 113, 133, .07); color: #fda4af; font-size: 12px; line-height: 1.45; }
+.submit-button { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 48px; margin-top: 26px; border: 0; border-radius: 11px; background: var(--accent); color: white; font-size: 13px; font-weight: 750; transition: background-color 160ms ease, transform 140ms var(--ease), box-shadow 160ms ease; }
+.submit-button:hover { background: #7c4de7; box-shadow: 0 8px 24px rgba(139, 92, 246, .2); }
+.submit-button:active { transform: scale(.98); }
+.submit-button:disabled { cursor: wait; opacity: .68; }
+.button-arrow { font-size: 18px; font-weight: 400; transition: transform 160ms var(--ease); }
+.submit-button:hover .button-arrow { transform: translateX(3px); }
+.submit-button[data-loading="true"] .button-arrow { display: none; }
+.footer-text { margin-top: 34px; color: #647184; font-size: 10px; line-height: 1.5; text-align: center; }
+.two-factor-hint { margin-top: 8px; color: var(--text2); font-size: 11px; line-height: 1.5; }
+.secondary-login-button { width: 100%; min-height: 38px; margin-top: 10px; border: 1px solid var(--border); border-radius: 10px; background: transparent; color: var(--text2); font-size: 12px; }
+.secondary-login-button:hover { border-color: var(--accent); color: var(--text); }
+#twoFactorCode { letter-spacing: .28em; text-align: center; font-size: 20px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 850px) {
+  .login-shell { display: block; width: min(480px, calc(100% - 28px)); min-height: 0; margin: 4vh auto; border-radius: 20px; }
+  .brand-panel { display: none; }
+  .login-panel { padding: 32px; }
+  .login-top { margin-bottom: 36px; }
+  .mobile-brand { display: flex; }
+  .mobile-brand .brand-name { font-size: 16px; font-weight: 750; }
+}
+@media (max-width: 480px) {
+  body { background: var(--surface); }
+  .login-shell { width: 100%; min-height: 100dvh; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+  .login-panel { min-height: 100dvh; padding: 26px 22px; }
+  .login-card h1 { font-size: 28px; }
+  .language-picker > span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; }
+  .button-arrow { transform: none !important; }
+}

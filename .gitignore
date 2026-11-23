@@ -1,0 +1,8 @@
+node_modules/
+data/
+nix-config.json
+server.key
+server.crt
+*.log
+work/wsl-runtime*/
+work/wsl-node/

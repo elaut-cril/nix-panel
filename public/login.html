@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b11">
+  <title>Вход | NIX Panel</title>
+  <link rel="stylesheet" href="/assets/login.css">
+  <script src="/assets/login.js" defer></script>
+</head>
+<body>
+  <main class="login-shell">
+    <section class="brand-panel" aria-label="NIX Panel">
+      <div class="brand"><div>NIX <span>PANEL</span></div></div>
+      <div class="brand-copy">
+        <div class="eyebrow" data-t="brandCaption">Сервер под контролем</div>
+        <h2>NIX / 2.2</h2>
+        <p data-t="brandText">Файлы, процессы, терминал и удалённый рабочий стол в одном интерфейсе.</p>
+        <ul class="feature-list">
+          <li data-t="feature1">Мониторинг в реальном времени</li>
+          <li data-t="feature2">Гранулярные права доступа</li>
+          <li data-t="feature3">Защищённые сессии</li>
+        </ul>
+      </div>
+      <div class="brand-footer">LINUX · NODE.JS · SOCKET.IO</div>
+    </section>
+    <section class="login-panel">
+      <div class="login-card">
+        <div class="login-top">
+          <div class="mobile-brand brand"><span class="brand-name">NIX PANEL</span></div>
+          <label class="language-picker"><span id="languageLabel" data-t="language">Язык</span><select id="language" aria-label="Language"><option value="ru">Русский</option><option value="en">English</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="zh">简体中文</option></select></label>
+        </div>
+        <h1 data-t="welcome">С возвращением</h1>
+        <p class="login-description" data-t="description">Войдите в защищённую панель управления вашим сервером.</p>
+        <form class="login-form" id="loginForm">
+          <div class="field" id="loginField">
+            <label for="login" data-t="loginLabel">Логин</label>
+            <div class="input-shell"><input type="text" id="login" data-t-placeholder="loginPh" placeholder="Введите логин" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="64" required autofocus></div>
+          </div>
+          <div class="field" id="passwordField">
+            <label for="password" data-t="passLabel">Пароль</label>
+            <div class="input-shell"><input type="password" id="password" data-t-placeholder="passPh" placeholder="Введите пароль" autocomplete="current-password" maxlength="256" required></div>
+          </div>
+          <div class="field" id="twoFactorField" hidden>
+            <label for="twoFactorCode" data-t="twoFactorLabel">Код из Authenticator</label>
+            <div class="input-shell"><input type="text" id="twoFactorCode" data-t-placeholder="twoFactorPh" placeholder="6 цифр" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6"></div>
+            <p class="two-factor-hint" data-t="twoFactorHint">Откройте приложение и введите текущий код.</p>
+          </div>
+          <div id="error" class="error" role="alert" aria-live="polite" hidden></div>
+          <button class="secondary-login-button" id="credentialsBack" type="button" data-t="back" hidden>Назад</button>
+          <button class="submit-button" id="loginButton" type="submit"><span data-t="btn">Войти</span><span class="button-arrow" aria-hidden="true">→</span></button>
+        </form>
+        <div class="footer-text" data-t="footer">NIX Panel · управление сервером</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
